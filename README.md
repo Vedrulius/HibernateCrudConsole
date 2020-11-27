@@ -14,6 +14,6 @@ Run Project:
 
 2)   Execute the project by running:
      2.1) $mvn clean install
-     2.2) $mvn liquibase:update
+     2.2) $mvn flyway:migrate
      2.3) $java -jar CrudConsoleProject-1.0-SNAPSHOT-jar-with-dependencies.jar
 
