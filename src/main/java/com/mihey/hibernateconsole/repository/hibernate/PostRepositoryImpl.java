@@ -8,6 +8,7 @@ import com.mihey.hibernateconsole.repository.PostRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class PostRepositoryImpl implements PostRepository {
@@ -43,6 +44,7 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public Post update(Post post) {
+        post.setUpdated(new Timestamp(System.currentTimeMillis()));
         session = sessionFactory.openSession();
         session.getTransaction().begin();
         session.update(post);
