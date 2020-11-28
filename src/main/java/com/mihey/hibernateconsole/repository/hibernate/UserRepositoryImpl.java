@@ -55,7 +55,8 @@ public class UserRepositoryImpl implements UserRepository {
     public void deleteById(Integer id) {
         session = sessionFactory.openSession();
         session.getTransaction().begin();
-        User user = session.get(User.class,id);
+        User user = new User();
+        user.setId(id);
         session.delete(user);
         session.getTransaction().commit();
         session.close();
