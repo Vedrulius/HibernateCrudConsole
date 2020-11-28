@@ -15,7 +15,7 @@ PRIMARY KEY (id)
 CREATE TABLE posts (
 id SERIAL PRIMARY KEY,
 user_id BIGINT,
-post TEXT,
+content TEXT,
 created TIMESTAMP NOT NULL DEFAULT now(),
 updated TIMESTAMP NOT NULL DEFAULT now(),
 CONSTRAINT fk_users FOREIGN KEY (user_id)

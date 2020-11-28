@@ -16,7 +16,7 @@ public class Post {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "userid")
+    @Column(name = "user_id")
     private Integer userId;
     @Column(name = "content")
     private String content;
@@ -31,5 +31,7 @@ public class Post {
     public Post(Integer userId, String content) {
         this.userId = userId;
         this.content = content;
+        this.created = new Timestamp(System.currentTimeMillis());
+        this.updated = new Timestamp(System.currentTimeMillis());
     }
 }
