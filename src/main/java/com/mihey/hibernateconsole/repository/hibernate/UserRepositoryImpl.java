@@ -1,5 +1,6 @@
 package com.mihey.hibernateconsole.repository.hibernate;
 
+import com.mihey.hibernateconsole.model.Post;
 import com.mihey.hibernateconsole.model.User;
 import com.mihey.hibernateconsole.repository.UserRepository;
 import com.mihey.hibernateconsole.util.HibernateUtil;
@@ -77,4 +78,5 @@ public class UserRepositoryImpl implements UserRepository {
         session.close();
         return user;
     }
+
 }

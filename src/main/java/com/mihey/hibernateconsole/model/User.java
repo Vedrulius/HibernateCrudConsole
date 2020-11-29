@@ -20,10 +20,11 @@ public class User {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
+//    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private List<Post> posts;
-    @OneToOne(targetEntity = Region.class/*, cascade = CascadeType.ALL*/)
+    @OneToOne(targetEntity = Region.class)
     @JoinColumn(name = "region_id", referencedColumnName = "id")
     private Region region;
     @Transient

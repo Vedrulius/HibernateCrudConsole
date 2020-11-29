@@ -85,7 +85,7 @@ public class Menu {
         int answer = sc.nextInt();
         List<Post> posts;
         if (answer == 1) {
-            posts = userController.getUserById(userId).getPosts();
+            posts = postController.getPostsByUserId(userId);
             System.out.println("==========================================================================================");
             posts.stream().map(Post::getContent).forEach(System.out::println);
             System.out.println("==========================================================================================");

@@ -19,7 +19,7 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     public List<Post> getAll() {
         session = sessionFactory.openSession();
-        List<Post> list=session.createQuery("FROM Post", Post.class).list();
+        List<Post> list = session.createQuery("FROM Post", Post.class).list();
         session.close();
         return list;
     }
@@ -27,7 +27,7 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     public Post getById(Integer id) {
         session = sessionFactory.openSession();
-        Post post =session.get(Post.class,id);
+        Post post = session.get(Post.class, id);
         session.close();
         return post;
     }
@@ -65,7 +65,12 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public List<Post> getPostsByUserId(Integer id) {
-        return null;
+    public List<Post> getPostsByUserId(Integer userId) {
+        session = sessionFactory.openSession();
+        session.getTransaction().begin();
+        User user = session.load(User.class, userId);
+        List<Post> posts = user.getPosts();
+        session.getTransaction().commit();
+        return posts;
     }
 }
