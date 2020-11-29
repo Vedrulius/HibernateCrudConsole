@@ -20,8 +20,9 @@ public class User {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @Transient
-    private List<Post> post;
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private List<Post> posts;
     @OneToOne(targetEntity = Region.class/*, cascade = CascadeType.ALL*/)
     @JoinColumn(name = "region_id", referencedColumnName = "id")
     private Region region;
@@ -36,4 +37,5 @@ public class User {
         this.lastName = lastName;
         this.region = region;
     }
+
 }
