@@ -25,4 +25,12 @@ public class Region {
     public Region(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "Region{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

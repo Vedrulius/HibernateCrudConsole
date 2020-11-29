@@ -8,7 +8,7 @@ CREATE TABLE users (
 id SERIAL,
 first_name VARCHAR(40),
 last_name VARCHAR(40),
-region_id BIGINT,
+region_id BIGINT NOT NULL,
 PRIMARY KEY (id)
 );
 

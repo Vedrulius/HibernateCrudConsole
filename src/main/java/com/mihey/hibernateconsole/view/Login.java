@@ -31,17 +31,15 @@ public class Login {
             System.out.println("Enter your region: ");
             regionName = sc.nextLine();
             region = new Region(regionName);
-            user = new User(name,surname,region);
             HibernateUtil.setSession();
-            RegionController regionController=new RegionController();
-            regionController.saveRegion(region);
+            RegionController regionController = new RegionController();
+            user = new User(name, surname, regionController.saveRegion(region));
             UserController userController = new UserController();
             userId = userController.saveUser(user).getId();
             new Menu().runMenu(userId);
 
         } else {
             System.out.println("Good by!");
-            HibernateUtil.closeSession();
         }
     }
 }

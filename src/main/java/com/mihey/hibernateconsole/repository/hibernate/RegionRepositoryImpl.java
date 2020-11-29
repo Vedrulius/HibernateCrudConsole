@@ -1,12 +1,11 @@
 package com.mihey.hibernateconsole.repository.hibernate;
 
-import com.mihey.hibernateconsole.model.Post;
 import com.mihey.hibernateconsole.model.Region;
-import com.mihey.hibernateconsole.model.User;
 import com.mihey.hibernateconsole.repository.RegionRepository;
 import com.mihey.hibernateconsole.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 import java.util.List;
 
@@ -33,11 +32,16 @@ public class RegionRepositoryImpl implements RegionRepository {
 
     @Override
     public Region save(Region region) {
-        session = sessionFactory.openSession();
-        session.getTransaction().begin();
-        session.save(region);
-        session.getTransaction().commit();
-        session.close();
+        Region region1 = isExists(region);
+        if (region1 == null) {
+            session = sessionFactory.openSession();
+            session.getTransaction().begin();
+            session.save(region);
+            session.getTransaction().commit();
+            session.close();
+        } else {
+            return region1;
+        }
         return region;
     }
 
@@ -60,5 +64,14 @@ public class RegionRepositoryImpl implements RegionRepository {
         session.delete(region);
         session.getTransaction().commit();
         session.close();
+    }
+
+    private Region isExists(Region region) {
+        session = sessionFactory.openSession();
+        Query query = session.createQuery("from Region where name = :name");
+        query.setParameter("name", region.getName().toLowerCase());
+        region = (Region) query.uniqueResult();
+        session.close();
+        return region;
     }
 }

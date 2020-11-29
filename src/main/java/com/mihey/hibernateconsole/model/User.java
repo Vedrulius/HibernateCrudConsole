@@ -22,8 +22,8 @@ public class User {
     private String lastName;
     @Transient
     private List<Post> post;
-    @OneToOne(targetEntity = Region.class)
-    @JoinColumn(name="region_id", referencedColumnName = "id")
+    @OneToOne(targetEntity = Region.class/*, cascade = CascadeType.ALL*/)
+    @JoinColumn(name = "region_id", referencedColumnName = "id")
     private Region region;
     @Transient
     private Role role;
