@@ -40,6 +40,7 @@ public class Login {
 
         } else {
             System.out.println("Good by!");
+            HibernateUtil.closeSession();
         }
     }
 }
