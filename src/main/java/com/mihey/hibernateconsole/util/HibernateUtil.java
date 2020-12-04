@@ -12,9 +12,9 @@ public class HibernateUtil {
 
     public static SessionFactory  setSession() {
         try {
-            StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().configure().build();
+            StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
             Metadata metadata = new MetadataSources(serviceRegistry).getMetadataBuilder().build();
-           return metadata.getSessionFactoryBuilder().build();
+           return metadata.buildSessionFactory();
         } catch (Throwable e) {
             e.printStackTrace();
             return  null;
