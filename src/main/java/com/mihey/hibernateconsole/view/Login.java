@@ -3,6 +3,7 @@ package com.mihey.hibernateconsole.view;
 import com.mihey.hibernateconsole.controller.RegionController;
 import com.mihey.hibernateconsole.controller.UserController;
 import com.mihey.hibernateconsole.model.Region;
+import com.mihey.hibernateconsole.model.Role;
 import com.mihey.hibernateconsole.model.User;
 import com.mihey.hibernateconsole.util.HibernateUtil;
 import org.hibernate.Session;
@@ -33,7 +34,7 @@ public class Login {
             region = new Region(regionName);
             HibernateUtil.setSession();
             RegionController regionController = new RegionController();
-            user = new User(name, surname, regionController.saveRegion(region));
+            user = new User(name, surname, regionController.saveRegion(region), Role.USER);
             UserController userController = new UserController();
             userId = userController.saveUser(user).getId();
             new Menu().runMenu(userId);

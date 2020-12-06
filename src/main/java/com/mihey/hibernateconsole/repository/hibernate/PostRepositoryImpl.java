@@ -7,6 +7,7 @@ import com.mihey.hibernateconsole.util.HibernateUtil;
 import com.mihey.hibernateconsole.repository.PostRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -18,9 +19,9 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     public List<Post> getAll() {
         session = HibernateUtil.getSession();
-        List<Post> list = session.createQuery("FROM Post", Post.class).list();
+        List<Post> posts = session.createQuery("FROM Post", Post.class).list();
         session.close();
-        return list;
+        return posts;
     }
 
     @Override
@@ -66,10 +67,10 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     public List<Post> getPostsByUserId(Integer userId) {
         session = HibernateUtil.getSession();
-        session.getTransaction().begin();
-        User user = session.load(User.class, userId);
-        List<Post> posts = user.getPosts();
-        session.getTransaction().commit();
+        Query query = session.createQuery("FROM Post Where user_id = :id");
+        query.setParameter("id", userId);
+        List<Post> posts = query.list();
+        session.close();
         return posts;
     }
 }

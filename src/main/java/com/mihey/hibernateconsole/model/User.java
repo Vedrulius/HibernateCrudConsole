@@ -23,8 +23,8 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private List<Post> posts;
-    @OneToOne(targetEntity = Region.class)
-    @JoinColumn(name = "region_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "region_id")
     private Region region;
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
@@ -33,10 +33,22 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, Region region) {
+    public User(String firstName, String lastName, Region region, Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.region = region;
+        this.role = role;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", posts=" + posts +
+                ", region=" + region +
+                ", role=" + role +
+                '}';
+    }
 }
