@@ -11,12 +11,11 @@ import java.util.List;
 
 public class RegionRepositoryImpl implements RegionRepository {
 
-    private final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     private Session session;
 
     @Override
     public List<Region> getAll() {
-        session = sessionFactory.openSession();
+        session = HibernateUtil.getSession();
         List<Region> list = session.createQuery("FROM Post", Region.class).list();
         session.close();
         return list;
@@ -24,7 +23,7 @@ public class RegionRepositoryImpl implements RegionRepository {
 
     @Override
     public Region getById(Integer id) {
-        session = sessionFactory.openSession();
+        session = HibernateUtil.getSession();
         Region region = session.get(Region.class, id);
         session.close();
         return region;
@@ -34,7 +33,7 @@ public class RegionRepositoryImpl implements RegionRepository {
     public Region save(Region region) {
         Region region1 = isExists(region);
         if (region1 == null) {
-            session = sessionFactory.openSession();
+            session = HibernateUtil.getSession();
             session.getTransaction().begin();
             session.save(region);
             session.getTransaction().commit();
@@ -47,7 +46,7 @@ public class RegionRepositoryImpl implements RegionRepository {
 
     @Override
     public Region update(Region region) {
-        session = sessionFactory.openSession();
+        session = HibernateUtil.getSession();
         session.getTransaction().begin();
         session.update(region);
         session.getTransaction().commit();
@@ -57,7 +56,7 @@ public class RegionRepositoryImpl implements RegionRepository {
 
     @Override
     public void deleteById(Integer id) {
-        session = sessionFactory.openSession();
+        session = HibernateUtil.getSession();
         session.getTransaction().begin();
         Region region = new Region();
         region.setId(id);
@@ -67,7 +66,7 @@ public class RegionRepositoryImpl implements RegionRepository {
     }
 
     private Region isExists(Region region) {
-        session = sessionFactory.openSession();
+        session = HibernateUtil.getSession();
         Query query = session.createQuery("from Region where name = :name");
         query.setParameter("name", region.getName().toLowerCase());
         region = (Region) query.uniqueResult();

@@ -13,12 +13,11 @@ import java.util.List;
 
 public class PostRepositoryImpl implements PostRepository {
 
-    private final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     private Session session;
 
     @Override
     public List<Post> getAll() {
-        session = sessionFactory.openSession();
+        session = HibernateUtil.getSession();
         List<Post> list = session.createQuery("FROM Post", Post.class).list();
         session.close();
         return list;
@@ -26,7 +25,7 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public Post getById(Integer id) {
-        session = sessionFactory.openSession();
+        session = HibernateUtil.getSession();
         Post post = session.get(Post.class, id);
         session.close();
         return post;
@@ -34,7 +33,7 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public Post save(Post post) {
-        session = sessionFactory.openSession();
+        session = HibernateUtil.getSession();
         session.getTransaction().begin();
         session.save(post);
         session.getTransaction().commit();
@@ -45,7 +44,7 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     public Post update(Post post) {
         post.setUpdated(new Timestamp(System.currentTimeMillis()));
-        session = sessionFactory.openSession();
+        session = HibernateUtil.getSession();
         session.getTransaction().begin();
         session.update(post);
         session.getTransaction().commit();
@@ -55,7 +54,7 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public void deleteById(Integer id) {
-        session = sessionFactory.openSession();
+        session = HibernateUtil.getSession();
         session.getTransaction().begin();
         Post post = new Post();
         post.setId(id);
@@ -66,7 +65,7 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public List<Post> getPostsByUserId(Integer userId) {
-        session = sessionFactory.openSession();
+        session = HibernateUtil.getSession();
         session.getTransaction().begin();
         User user = session.load(User.class, userId);
         List<Post> posts = user.getPosts();

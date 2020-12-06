@@ -12,12 +12,11 @@ import java.util.List;
 
 public class UserRepositoryImpl implements UserRepository {
 
-    private final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     private Session session;
 
     @Override
     public List<User> getAll() {
-        session = sessionFactory.openSession();
+        session = HibernateUtil.getSession();
         List<User> list = session.createQuery("FROM User", User.class).list();
         session.close();
         return list;
@@ -25,7 +24,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User getById(Integer id) {
-        session = sessionFactory.openSession();
+        session = HibernateUtil.getSession();
         User user = session.get(User.class, id);
         session.close();
         return user;
@@ -35,7 +34,7 @@ public class UserRepositoryImpl implements UserRepository {
     public User save(User user) {
         User user1 = isExists(user);
         if (user1 == null) {
-            session = sessionFactory.openSession();
+            session = HibernateUtil.getSession();
             session.getTransaction().begin();
             session.save(user);
             session.getTransaction().commit();
@@ -48,7 +47,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User update(User user) {
-        session = sessionFactory.openSession();
+        session = HibernateUtil.getSession();
         session.getTransaction().begin();
         session.update(user);
         session.getTransaction().commit();
@@ -58,7 +57,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void deleteById(Integer id) {
-        session = sessionFactory.openSession();
+        session = HibernateUtil.getSession();
         session.getTransaction().begin();
         User user = new User();
         user.setId(id);
@@ -68,7 +67,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     private User isExists(User user) {
-        session = sessionFactory.openSession();
+        session = HibernateUtil.getSession();
         Query query = session.createQuery("from User where first_name = :name " +
                 "and last_name = :surname and region_id = :region");
         query.setParameter("name", user.getFirstName().toLowerCase());
