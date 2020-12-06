@@ -30,7 +30,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User save(User user) {
-        User user1 = isExists(user);
+        User user1 = findUser(user);
         if (user1 == null) {
             session = HibernateUtil.getSession();
             session.getTransaction().begin();
@@ -64,7 +64,7 @@ public class UserRepositoryImpl implements UserRepository {
         session.close();
     }
 
-    private User isExists(User user) {
+    private User findUser(User user) {
         session = HibernateUtil.getSession();
         Query query = session.createQuery("from User where first_name = :name " +
                 "and last_name = :surname and region_id = :region");

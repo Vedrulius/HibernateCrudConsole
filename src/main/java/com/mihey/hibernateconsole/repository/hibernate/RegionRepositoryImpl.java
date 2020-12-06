@@ -30,7 +30,7 @@ public class RegionRepositoryImpl implements RegionRepository {
 
     @Override
     public Region save(Region region) {
-        Region region1 = isExists(region);
+        Region region1 = findRegion(region);
         if (region1 == null) {
             session = HibernateUtil.getSession();
             session.getTransaction().begin();
@@ -64,7 +64,7 @@ public class RegionRepositoryImpl implements RegionRepository {
         session.close();
     }
 
-    private Region isExists(Region region) {
+    private Region findRegion(Region region) {
         session = HibernateUtil.getSession();
         Query query = session.createQuery("from Region where name = :name");
         query.setParameter("name", region.getName().toLowerCase());
