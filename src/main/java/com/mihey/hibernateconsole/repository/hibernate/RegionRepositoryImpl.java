@@ -4,7 +4,6 @@ import com.mihey.hibernateconsole.model.Region;
 import com.mihey.hibernateconsole.repository.RegionRepository;
 import com.mihey.hibernateconsole.util.HibernateUtil;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 import java.util.List;

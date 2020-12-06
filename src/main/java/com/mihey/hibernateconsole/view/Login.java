@@ -38,7 +38,6 @@ public class Login {
             UserController userController = new UserController();
             userId = userController.saveUser(user).getId();
             new Menu().runMenu(userId);
-
         } else {
             System.out.println("Good by!");
             HibernateUtil.closeSessionFactory();

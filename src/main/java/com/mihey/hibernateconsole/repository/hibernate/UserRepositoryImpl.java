@@ -1,11 +1,9 @@
 package com.mihey.hibernateconsole.repository.hibernate;
 
-import com.mihey.hibernateconsole.model.Post;
 import com.mihey.hibernateconsole.model.User;
 import com.mihey.hibernateconsole.repository.UserRepository;
 import com.mihey.hibernateconsole.util.HibernateUtil;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 import java.util.List;

@@ -34,4 +34,15 @@ public class Post {
         this.created = new Timestamp(System.currentTimeMillis());
         this.updated = new Timestamp(System.currentTimeMillis());
     }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", content='" + content + '\'' +
+                ", created=" + created +
+                ", updated=" + updated +
+                '}';
+    }
 }
