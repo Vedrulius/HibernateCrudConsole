@@ -15,7 +15,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public List<User> getAll() {
         session = HibernateUtil.getSession();
-        List<User> list = session.createQuery("FROM User", User.class).list();
+        List<User> list = session.createQuery("SELECT u FROM User u JOIN FETCH u.posts").list();
         session.close();
         return list;
     }
@@ -23,7 +23,9 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User getById(Integer id) {
         session = HibernateUtil.getSession();
-        User user = session.get(User.class, id);
+         Query query= session.createQuery("SELECT u FROM User u JOIN FETCH u.posts WHERE u.id = :id");
+         query.setParameter("id", id);
+        User user = (User) query.uniqueResult();
         session.close();
         return user;
     }
