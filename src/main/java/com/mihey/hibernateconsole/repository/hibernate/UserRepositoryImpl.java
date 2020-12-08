@@ -32,16 +32,11 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User save(User user) {
-        User user1 = findUser(user);
-        if (user1 == null) {
             session = HibernateUtil.getSession();
             session.getTransaction().begin();
-            session.save(user);
+            session.saveOrUpdate(user);
             session.getTransaction().commit();
             session.close();
-        } else {
-            return user1;
-        }
         return user;
     }
 
@@ -64,18 +59,6 @@ public class UserRepositoryImpl implements UserRepository {
         session.delete(user);
         session.getTransaction().commit();
         session.close();
-    }
-
-    private User findUser(User user) {
-        session = HibernateUtil.getSession();
-        Query query = session.createQuery("from User where first_name = :name " +
-                "and last_name = :surname and region_id = :region");
-        query.setParameter("name", user.getFirstName().toLowerCase());
-        query.setParameter("surname", user.getLastName().toLowerCase());
-        query.setParameter("region", user.getRegion().getId());
-        user = (User) query.uniqueResult();
-        session.close();
-        return user;
     }
 
 }
