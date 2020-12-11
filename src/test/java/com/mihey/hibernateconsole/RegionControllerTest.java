@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,9 +55,12 @@ public class RegionControllerTest {
         Assert.assertNotEquals("RU", regionController.editRegion(region).getName());
     }
 
-    @Test
+    @Test(expected = PersistenceException.class)
     public void deleteRegionByIdTest() {
         Mockito.doNothing().when(regionRepository).deleteById(anyInt());
+        regionController.deleteRegionById(1);
+        Mockito.doThrow(new PersistenceException()).when(regionRepository).deleteById(2);
+        regionController.deleteRegionById(2);
     }
 
     @Test

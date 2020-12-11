@@ -3,6 +3,7 @@ package com.mihey.hibernateconsole;
 import com.mihey.hibernateconsole.controller.PostController;
 import com.mihey.hibernateconsole.model.Post;
 import com.mihey.hibernateconsole.repository.PostRepository;
+import org.apache.maven.toolchain.model.PersistedToolchains;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import javax.persistence.PersistenceException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,9 +61,12 @@ public class PostControllerTest {
         Assert.assertNotEquals("Hello Java Test", postController.editPost(post).getContent());
     }
 
-    @Test
+    @Test(expected = PersistenceException.class)
     public void deletePostByIdTest() {
-
+        Mockito.doNothing().when(postRepository).deleteById(anyInt());
+        postController.deletePostById(1);
+        Mockito.doThrow(new PersistenceException()).when(postRepository).deleteById(2);
+        postController.deletePostById(2);
     }
 
     @Test

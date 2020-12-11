@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,9 +62,12 @@ public class UserControllerTest {
         Assert.assertNotEquals("John", userController.editUser(user).getFirstName());
     }
 
-    @Test
+    @Test(expected = PersistenceException.class)
     public void deleteUserByIdTest() {
-
+        Mockito.doNothing().when(userRepository).deleteById(anyInt());
+        userController.deleteUser(1);
+        Mockito.doThrow(new PersistenceException()).when(userRepository).deleteById(2);
+        userController.deleteUser(2);
     }
 
     @Test
