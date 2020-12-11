@@ -8,7 +8,7 @@ import java.util.List;
 
 public class PostController {
 
-    private final PostRepository postRepository = new PostRepositoryImpl();
+    private PostRepository postRepository = new PostRepositoryImpl();
 
     public Post createPost(Post post) {
         return postRepository.save(post);

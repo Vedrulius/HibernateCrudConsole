@@ -8,7 +8,7 @@ import java.util.List;
 
 public class UserController {
 
-    private final UserRepository userRepository = new UserRepositoryImpl();
+    private UserRepository userRepository = new UserRepositoryImpl();
 
     public User getUserById(int id) {
         return userRepository.getById(id);

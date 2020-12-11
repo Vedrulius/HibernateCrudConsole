@@ -37,7 +37,6 @@ public class Login {
             user = new User(name, surname, regionController.saveRegion(region), Role.USER);
             UserController userController = new UserController();
             userId = userController.saveUser(user).getId();
-            System.out.println(userController.getAllUsers());
             new Menu().runMenu(userId);
         } else {
             System.out.println("Good by!");

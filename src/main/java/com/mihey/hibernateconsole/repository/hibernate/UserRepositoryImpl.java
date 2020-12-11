@@ -23,8 +23,8 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User getById(Integer id) {
         session = HibernateUtil.getSession();
-         Query query= session.createQuery("SELECT u FROM User u JOIN FETCH u.posts WHERE u.id = :id");
-         query.setParameter("id", id);
+        Query query = session.createQuery("SELECT u FROM User u JOIN FETCH u.posts WHERE u.id = :id");
+        query.setParameter("id", id);
         User user = (User) query.uniqueResult();
         session.close();
         return user;
@@ -32,11 +32,11 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User save(User user) {
-            session = HibernateUtil.getSession();
-            session.getTransaction().begin();
-            session.saveOrUpdate(user);
-            session.getTransaction().commit();
-            session.close();
+        session = HibernateUtil.getSession();
+        session.getTransaction().begin();
+        session.save(user);
+        session.getTransaction().commit();
+        session.close();
         return user;
     }
 

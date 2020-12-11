@@ -7,7 +7,7 @@ import com.mihey.hibernateconsole.repository.hibernate.RegionRepositoryImpl;
 
 public class RegionController {
 
-    private final RegionRepository regionRepository = new RegionRepositoryImpl();
+    private RegionRepository regionRepository = new RegionRepositoryImpl();
 
     public Region saveRegion(Region region) {
         return regionRepository.save(region);
