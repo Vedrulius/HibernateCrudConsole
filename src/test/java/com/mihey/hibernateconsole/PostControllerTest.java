@@ -11,24 +11,65 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.mockito.ArgumentMatchers.anyInt;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PostControllerTest {
 
+    Post post = new Post();
+
+    {
+        post.setId(1);
+        post.setUserId(1);
+        post.setContent("Hello JavaTest");
+        post.setCreated(new Timestamp(System.currentTimeMillis()));
+        post.setUpdated(new Timestamp(System.currentTimeMillis()));
+    }
+
     @Mock
-    PostRepository postRepository;
+    private PostRepository postRepository;
 
     @InjectMocks
-    PostController postController = new PostController();
+    private PostController postController = new PostController();
 
     @Test
     public void getPostByIdTest() {
-        Post post = new Post();
-        post.setId(1);
-        post.setContent("Hello JavaTest");
         Mockito.when(postRepository.getById(anyInt())).thenReturn(post);
-        Assert.assertEquals("Hello JavaTest", postController.getPostsById(1)
+        Assert.assertEquals(post, postController.getPostsById(1));
+        Assert.assertNotEquals("Hello Java", postController.getPostsById(1)
                 .getContent());
+    }
+
+    @Test
+    public void createPostTest() {
+        Mockito.when(postRepository.save(post)).thenReturn(post);
+        Assert.assertEquals(post, postController.createPost(post));
+        Assert.assertNotEquals("Hello Test", postController.createPost(post).getContent());
+    }
+
+    @Test
+    public void editPostTest() {
+        post.setContent("Hello Mockito");
+        Mockito.when(postRepository.update(post)).thenReturn(post);
+        Assert.assertEquals(post, postController.editPost(post));
+        Assert.assertNotEquals("Hello Java Test", postController.editPost(post).getContent());
+    }
+
+    @Test
+    public void deletePostByIdTest() {
+
+    }
+
+    @Test
+    public void showAllPostsTest() {
+        List<Post> posts = new ArrayList<>();
+        posts.add(post);
+        Mockito.when(postRepository.getAll()).thenReturn(posts);
+        Assert.assertEquals(posts, postController.showAllPosts());
+        Assert.assertNotEquals(0, postController.showAllPosts().size());
     }
 }
