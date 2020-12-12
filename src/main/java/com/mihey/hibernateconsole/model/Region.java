@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -19,7 +20,7 @@ public class Region {
     private Integer id;
     @Column(name = "name")
     private String name;
-    @OneToMany(mappedBy = "region")
+    @OneToMany(mappedBy = "region", fetch = FetchType.LAZY)
     private List<User> users;
 
     public Region() {
