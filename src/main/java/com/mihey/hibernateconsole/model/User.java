@@ -20,8 +20,7 @@ public class User {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Post> posts;
     @ManyToOne
     @JoinColumn(name = "region_id")

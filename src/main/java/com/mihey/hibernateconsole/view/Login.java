@@ -6,7 +6,6 @@ import com.mihey.hibernateconsole.model.Region;
 import com.mihey.hibernateconsole.model.Role;
 import com.mihey.hibernateconsole.model.User;
 import com.mihey.hibernateconsole.util.HibernateUtil;
-import org.hibernate.Session;
 
 import java.util.Scanner;
 
@@ -36,8 +35,7 @@ public class Login {
             RegionController regionController = new RegionController();
             user = new User(name, surname, regionController.saveRegion(region), Role.USER);
             UserController userController = new UserController();
-            userId = userController.saveUser(user).getId();
-            new Menu().runMenu(userId);
+            new Menu().runMenu(userController.saveUser(user));
         } else {
             System.out.println("Good by!");
             HibernateUtil.closeSessionFactory();

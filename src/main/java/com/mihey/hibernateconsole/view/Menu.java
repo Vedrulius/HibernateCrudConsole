@@ -3,6 +3,7 @@ package com.mihey.hibernateconsole.view;
 import com.mihey.hibernateconsole.controller.PostController;
 import com.mihey.hibernateconsole.controller.UserController;
 import com.mihey.hibernateconsole.model.Post;
+import com.mihey.hibernateconsole.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,8 @@ public class Menu {
             "5. Delete User\n" +
             "6. Exit";
 
-    public void runMenu(int userId) {
+    public void runMenu(User user) {
+        int userId = user.getId();
         boolean flag = true;
         while (flag) {
             System.out.println(menuMessage);
@@ -31,16 +33,16 @@ public class Menu {
             sc.nextLine();
             switch (choice) {
                 case 1:
-                    createPost(userId);
+                    createPost(user);
                     break;
                 case 2:
-                    editPost(userId);
+                    editPost();
                     break;
                 case 3:
                     showPosts(userId);
                     break;
                 case 4:
-                    deletePost(userId);
+                    deletePost();
                     break;
                 case 5:
                     flag = deleteUser(userId, flag);
@@ -59,13 +61,13 @@ public class Menu {
         }
     }
 
-    public void createPost(int userId) {
+    public void createPost(User user) {
         System.out.println("Write your post:");
         String content = sc.nextLine();
-        postController.createPost(new Post(userId, content));
+        postController.createPost(new Post(user, content));
     }
 
-    public void editPost(int userId) {
+    public void editPost() {
         System.out.println("=============================================");
         List<Post> posts = new ArrayList<>(postController.showAllPosts());
         posts.stream().map(post -> post.getId() + ". " + post.getContent()).forEach(System.out::println);
@@ -99,7 +101,7 @@ public class Menu {
 
     }
 
-    public void deletePost(int userId) {
+    public void deletePost() {
         System.out.println("=============================================");
         List<Post> posts = new ArrayList<>(postController.showAllPosts());
         posts.stream().map(post -> post.getId() + ". " + post.getContent()).forEach(System.out::println);

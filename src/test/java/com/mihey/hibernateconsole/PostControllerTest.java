@@ -2,8 +2,10 @@ package com.mihey.hibernateconsole;
 
 import com.mihey.hibernateconsole.controller.PostController;
 import com.mihey.hibernateconsole.model.Post;
+import com.mihey.hibernateconsole.model.Region;
+import com.mihey.hibernateconsole.model.Role;
+import com.mihey.hibernateconsole.model.User;
 import com.mihey.hibernateconsole.repository.PostRepository;
-import org.apache.maven.toolchain.model.PersistedToolchains;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +28,7 @@ public class PostControllerTest {
 
     {
         post.setId(1);
-        post.setUserId(1);
+        post.setUser(new User("John", "Doe", new Region("US"), Role.USER));
         post.setContent("Hello JavaTest");
         post.setCreated(new Timestamp(System.currentTimeMillis()));
         post.setUpdated(new Timestamp(System.currentTimeMillis()));
