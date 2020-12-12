@@ -15,7 +15,7 @@ PRIMARY KEY (id)
 
 CREATE TABLE posts (
 id SERIAL PRIMARY KEY,
-user_id BIGINT,
+user_id INT NOT NULL,
 content TEXT,
 created TIMESTAMP NOT NULL DEFAULT now(),
 updated TIMESTAMP NOT NULL DEFAULT now(),

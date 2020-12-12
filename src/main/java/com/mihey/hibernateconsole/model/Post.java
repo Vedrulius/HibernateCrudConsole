@@ -24,6 +24,9 @@ public class Post {
     private Timestamp created;
     @Column(name = "updated")
     private Timestamp updated;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User user;
 
     public Post() {
     }

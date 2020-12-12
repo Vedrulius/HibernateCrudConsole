@@ -10,15 +10,16 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 public class HibernateUtil {
     private final static SessionFactory sessionFactory = setSession();
 
-    public static SessionFactory  setSession() {
+    public static SessionFactory setSession() {
+        Metadata metadata = null;
         try {
             StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
-            Metadata metadata = new MetadataSources(serviceRegistry).getMetadataBuilder().build();
-           return metadata.buildSessionFactory();
+            metadata = new MetadataSources(serviceRegistry).getMetadataBuilder().build();
         } catch (Throwable e) {
             e.printStackTrace();
-            return  null;
+            System.exit(1);
         }
+        return metadata.buildSessionFactory();
     }
 
     public static Session getSession() {
