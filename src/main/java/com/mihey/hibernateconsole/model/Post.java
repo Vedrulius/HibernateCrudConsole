@@ -40,7 +40,6 @@ public class Post {
     public String toString() {
         return "Post{" +
                 "id=" + id +
-                ", userId=" + /*userId +*/
                 ", content='" + content + '\'' +
                 ", created=" + created +
                 ", updated=" + updated +
