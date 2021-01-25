@@ -3,7 +3,7 @@ interacts with postgresql via hibernate and migrate DB using flyway.
 
 Run Project:
 1) log in as root to postgresql(sudo -i -u postgres):
-     1.1) postservice=#  CREATE database postservice;
+     1.1) postgres=#  CREATE database postservice;
      1.2) $ psql -d template1 -U postgres
           template1=# create user username with password 'password';
           template1=# grant all privileges on database postservice to username;
